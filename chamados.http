@@ -1,0 +1,35 @@
+# Arquivo criado para usar a extensão HTTP Client do Cursor (excelente opção para testar rotas locais)
+
+GET http://localhost:8000/clientes
+
+###
+
+GET http://localhost:8000/clientes/3
+
+###
+
+POST http://localhost:8000/clientes
+Content-Type: application/json
+
+{
+    "nome": "Mariana",
+    "email": "marianatalbano@gmail.com",
+    "telefone": "11943760342"
+}
+
+### 
+
+PUT http://localhost:8000/clientes/1
+Content-Type: application/json
+
+{
+    "nome": "Adriana",
+    "email": "adriana@teste.com",
+    "telefone": "1194445552"
+}
+
+### 
+
+DELETE http://localhost:8000/clientes/1
+
+
