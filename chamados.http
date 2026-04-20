@@ -17,7 +17,7 @@ Content-Type: application/json
     "telefone": "11943760342"
 }
 
-### 
+###
 
 PUT http://localhost:8000/clientes/1
 Content-Type: application/json
@@ -28,8 +28,6 @@ Content-Type: application/json
     "telefone": "1194445552"
 }
 
-### 
+###
 
 DELETE http://localhost:8000/clientes/1
-
-

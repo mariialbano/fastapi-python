@@ -1,6 +1,17 @@
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse # Importação para retornar HTML como response
-from app.rotas import cliente
+from fastapi import FastAPI, Request
+from fastapi.responses import (  # Importação para retornar HTML como response
+    HTMLResponse,
+)
+from fastapi.staticfiles import StaticFiles
+
+# Importação do Jinja para construção do Front-End usando Python.
+from fastapi.templating import (
+    Jinja2Templates,
+)
+
+from app.rotas import cliente, login
+
+templates = Jinja2Templates(directory="templates")
 
 app = FastAPI(
     title="Techlog Solutions API (Alura)",
@@ -8,24 +19,25 @@ app = FastAPI(
     version="0.0.1",
 )
 
-app.include_router(cliente.router)
+app.mount(
+    "/static", StaticFiles(directory="static"), name="static"
+)  # mapeamento da pasta Static
+app.include_router(cliente.router)  # Rotas do Back
+app.include_router(cliente.front_router)  # Rotas do Front
+app.include_router(login.router)
 
-@app.get("/")
+
+@app.get("/health")
 async def health_check():
-    return {"status":"ok"}
+    return {"status": "ok"}
 
-@app.get("/front", response_class=HTMLResponse)
-async def frontend():
-    return """
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
-        </head>
-        <body>
-            <h1>Techlog Solutions</h1>
-        </body>
-        </html>
-    """
+
+@app.get("/", response_class=HTMLResponse)
+# Edição no endpoint de /frontend para /.
+# Normalmente a primeira página de um website é o front.
+async def frontend(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "index.html",
+        {"titulo": "Techlog Solutions CRM", "versao": "1.0.0"},
+    )

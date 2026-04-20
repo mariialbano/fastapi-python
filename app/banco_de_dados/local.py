@@ -1,10 +1,10 @@
-from contextlib import contextmanager
 import sqlite3
+from contextlib import contextmanager
 
-class BancoLocal():
-    def __init__(self, nome_arquivo='techlog.db'):
+
+class BancoLocal:
+    def __init__(self, nome_arquivo="techlog.db"):
         self.nome_arquivo = nome_arquivo
-
 
     @contextmanager
     def conectar(self):
@@ -21,16 +21,22 @@ class BancoLocal():
     def inicializar_banco(self):
         with self.conectar() as conexao:
             cursor = conexao.cursor()
-            cursor.execute(
-                '''
+            cursor.execute("""
                     CREATE TABLE IF NOT EXISTS clientes (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         nome TEXT NOT NULL,
                         email TEXT NOT NULL,
                         telefone TEXT NOT NULL
                     )
-                '''
-            )
+                """)
+            cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS usuarios (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        nome TEXT NOT NULL,
+                        email TEXT NOT NULL,
+                        senha TEXT NOT NULL
+                    )
+                """)
 
             conexao.commit()
             print("Banco de dados inicializado!")

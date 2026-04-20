@@ -1,11 +1,12 @@
-import email
 from pydantic import BaseModel
+
 
 class Cliente(BaseModel):
     id_: int
     nome: str
     email: str
-    telefone:str
+    telefone: str
+
 
 class ClienteCriarAtualizar(BaseModel):
     nome: str

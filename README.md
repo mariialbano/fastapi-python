@@ -64,10 +64,10 @@ O módulo **`sqlite3`** faz parte da biblioteca padrão do Python; não entra no
 
 Se ao subir o uvicorn aparecer algo como *“normalmente é permitida apenas uma utilização de cada endereço de soquete”* ou *`error while attempting to bind on address ('127.0.0.1', 8000)`*, a **porta 8000 já está ocupada** por outro processo (muito comum: outra instância do uvicorn ainda rodando em outro terminal, ou um processo que não foi encerrado direito).
 
-**1. Encerrar o servidor da forma correta**  
+**1. Encerrar o servidor da forma correta**
 No terminal onde o uvicorn está ativo, use **Ctrl+C** e espere a mensagem de shutdown. Só então suba de novo com o mesmo comando.
 
-**2. Descobrir qual processo usa a porta 8000 (Windows)**  
+**2. Descobrir qual processo usa a porta 8000 (Windows)**
 No PowerShell ou CMD:
 
 ```powershell
@@ -82,7 +82,7 @@ taskkill /PID <número_do_pid> /F
 
 Substitua `<número_do_pid>` pelo valor que apareceu no `netstat`. Depois disso, `uv run uvicorn ... --port 8000` deve voltar a funcionar.
 
-**3. Usar outra porta (sem matar processo)**  
+**3. Usar outra porta (sem matar processo)**
 Se preferir não encerrar o que já está na 8000, suba em outra porta, por exemplo **8001**:
 
 ```bash

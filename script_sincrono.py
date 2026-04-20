@@ -1,9 +1,11 @@
 import time
 
+
 def fazer_pedido_sincrono(id_pedido):
     print(f"[Sync] Começando pedido {id_pedido}...")
     time.sleep(2)
     print(f"[Sync] Pedido {id_pedido} pronto!")
+
 
 def executar_sincrono():
     print("Iniciando processo sincrono...")
@@ -15,6 +17,7 @@ def executar_sincrono():
 
     fim = time.time()
     print(f"Tempo total síncrono: {fim - inicio:.2f} segundos")
+
 
 if __name__ == "__main__":
     executar_sincrono()
