@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, Request
 from fastapi.responses import (  # Importação para retornar HTML como response
     HTMLResponse,
@@ -9,14 +11,23 @@ from fastapi.templating import (
     Jinja2Templates,
 )
 
-from app.rotas import cliente, login
+from app.dependencias import banco_de_dados
+from app.rotas import cliente, login, logout, registro
 
 templates = Jinja2Templates(directory="templates")
+
+
+@asynccontextmanager
+async def lifespan(_application: FastAPI):
+    banco_de_dados.inicializar_banco()
+    yield
+
 
 app = FastAPI(
     title="Techlog Solutions API (Alura)",
     description="CRM para Techlog Solutions",
     version="0.0.1",
+    lifespan=lifespan,
 )
 
 app.mount(
@@ -25,6 +36,8 @@ app.mount(
 app.include_router(cliente.router)  # Rotas do Back
 app.include_router(cliente.front_router)  # Rotas do Front
 app.include_router(login.router)
+app.include_router(registro.router)
+app.include_router(logout.router)
 
 
 @app.get("/health")

@@ -4,7 +4,7 @@
 
 {% block conteudo %}
 <div class="container">
-    <h1>{{ 'Editar' if cliente else 'Cadastrar Novo' }} Cliente {{cliente_id}}</h1>
+    <h1>{{ 'Editar' if cliente else 'Cadastrar Novo' }} Cliente{% if cliente %} #{{ cliente.id_ }}{% endif %}</h1>
 
     <form id="formCliente" class="form-cliente">
         <div class="form-group">
@@ -42,7 +42,7 @@ document.getElementById('formCliente').addEventListener('submit', async (e) => {
         email: document.getElementById('email').value,
         telefone: document.getElementById('telefone').value
     };
-    Mariana email: marianatalbano
+
     try {
         const url = isEdit ? `/api/clientes/${clienteId}` : '/api/clientes/';
         const method = isEdit ? 'PUT' : 'POST';
