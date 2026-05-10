@@ -13,6 +13,7 @@ from fastapi.templating import (
 
 from app.dependencias import banco_de_dados
 from app.rotas import cliente, login, logout, registro
+from app.rotas.autenticacao_middleware import AuthenticationToken
 
 templates = Jinja2Templates(directory="templates")
 
@@ -33,6 +34,7 @@ app = FastAPI(
 app.mount(
     "/static", StaticFiles(directory="static"), name="static"
 )  # mapeamento da pasta Static
+app.add_middleware(AuthenticationToken)
 app.include_router(cliente.router)  # Rotas do Back
 app.include_router(cliente.front_router)  # Rotas do Front
 app.include_router(login.router)

@@ -6,6 +6,7 @@ from fastapi.templating import Jinja2Templates
 
 from app.banco_de_dados.usuario_repositorio import UsuarioRepositorio
 from app.dependencias import obter_usuario_repositorio
+from app.rotas.autenticacao_middleware import VALOR_TOKEN_SESSAO
 
 templates = Jinja2Templates(directory="templates")
 
@@ -29,7 +30,11 @@ async def login(
     usuario = await usuario_repositorio.buscar_usuario_email_senha(email, senha)
     if usuario:
         response = RedirectResponse(url="/", status_code=303)
-        response.set_cookie(key="session_token", value="token_senha", httponly=True)
+        response.set_cookie(
+            key="session_token",
+            value=VALOR_TOKEN_SESSAO,
+            httponly=True,
+        )
 
         return response
 
