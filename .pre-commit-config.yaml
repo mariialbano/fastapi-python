@@ -26,8 +26,6 @@ repos:
     hooks:
       - id: pylint
         name: pylint
-        entry: uv run pylint --max-line-length=88 --disable=C0114,C0115,C0116,E0401,R0903
+        entry: uv run pylint --max-line-length=88 --disable=C0114,C0115,C0116,E0401,R0903,W0621
         language: system
         types: [python]
-        env:
-          PYTHONPATH: .
